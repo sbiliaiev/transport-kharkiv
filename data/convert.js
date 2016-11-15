@@ -11,15 +11,19 @@ fs.readFile('./danimist.json', function(err, data) {
 
    for (let i = 0; i < result.length; i++) {
     //    if (result[i].routes_transport_type === 'trolleybus' && result[i].routes_name === 3) {
-        let routes = result[i].routes_way.split(' – ');
-        console.log(routes);
+        var routes = result[i].routes_way.split(' – ');
+        routes.map((item) => `'$(item)`);
         result[i].routes_way_array = routes;
+        console.log(result[i]);
+        console.log(JSON.stringify(result[i]));
     //    }
    }
-    fs.writeFile(`./danimist_converted.json`, JSON.stringify(result), function(err) {
+
+    fs.writeFile(`./converted.json`, JSON.stringify(result, null, 4), 'utf8', function(err) {
         if (err) {
             return console.error(err);
         }
     });
+
 //    console.log("Asynchronous read: " + data.toString());
 });
